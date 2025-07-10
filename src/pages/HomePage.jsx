@@ -1,39 +1,39 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PizzaCard from "../components/PizzaCard";
+import Card from "../components/Card";
 
 export default function HomePage() {
-  const [pizzas, setPizzas] = useState([]);
+  const [comics, setComics] = useState([]);
 
   //esegiamo il rendering delle pizze
-  const fetchPizzas = () => {
-    console.log("caricando le pizze");
+  const fetchComics = () => {
+    console.log("caricando i comics");
     axios
       .get(import.meta.env.VITE_API_URL)
       .then((response) => {
-        console.log(response.data);
+        console.log("Risposta dell' API: ", response.data);
         const { data } = response;
-        setPizzas(data);
+        setComics(data);
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  useEffect(fetchPizzas, []);
+  useEffect(fetchComics, []);
   return (
     <>
-      <h1 className="text-primary">Pizzeria 8 Bit</h1>
+      <h1 className="text-primary">8bit Manga</h1>
       <section>
-        {pizzas.map((card, index, pizza) => (
-          <div key={index} pizza={pizza}>
-            <PizzaCard
-              name={card.name}
+        {(Array.isArray(comics) ? comics : []).map((card, index, comic) => (
+          <div key={index} comic={comic}>
+            <Card
+              title={card.title}
               description={card.description}
               price={card.price}
-              foto={card.foto}
+              imageUrl={card.imageUrl}
               id={card.id}
               isDetail={false}
-              ingredients={pizza.ingredients}
+              ingredients={comic.ingredients}
             />
           </div>
         ))}
