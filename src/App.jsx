@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DefaultLayout from "./layout/DefaultLayout";
 import HomePage from "./pages/HomePage";
 import Detail from "./pages/Detail";
+import CategoriesPage from "./pages/CategoriesPage";
+import "../src/index.css";
 
 export default function App() {
   return (
@@ -12,7 +14,8 @@ export default function App() {
         <Routes>
           <Route element={<DefaultLayout />}>
             <Route index path="/" element={<HomePage />}></Route>
-            <Route path="/pizzas/:id" element={<Detail />}></Route>
+            <Route path="/comics/:id" element={<Detail />}></Route>
+            <Route path="/categories" element={<CategoriesPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

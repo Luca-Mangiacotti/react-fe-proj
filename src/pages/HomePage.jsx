@@ -1,43 +1,60 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Card from "../components/Card";
+import Card from "../components/Ui/Card";
 
 export default function HomePage() {
   const [comics, setComics] = useState([]);
+  const [searchWord, setSearchWord] = useState("");
 
-  //esegiamo il rendering delle pizze
+  // Funzione che carica i comics con parametri
   const fetchComics = () => {
-    console.log("caricando i comics");
+    const params = new URLSearchParams();
+    if (searchWord) params.append("word", searchWord);
+
+    const url = `${import.meta.env.VITE_API_URL}?${params.toString()}`;
+
     axios
-      .get(import.meta.env.VITE_API_URL)
+      .get(url)
       .then((response) => {
-        console.log("Risposta dell' API: ", response.data);
-        const { data } = response;
-        setComics(data);
+        setComics(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  useEffect(fetchComics, []);
+
+  // Ricarica i dati quando searchWord cambia
+  useEffect(fetchComics, [searchWord]);
+
   return (
-    <>
-      <h1 className="text-primary">8bit Manga</h1>
-      <section>
-        {(Array.isArray(comics) ? comics : []).map((card, index, comic) => (
-          <div key={index} comic={comic}>
+    <div className="mx-5">
+      <h1 className="text-info mb-3 mt-3">8bit Manga</h1>
+
+      {/* 🔍 Search bar */}
+      <div className="mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Cerca per titolo..."
+          value={searchWord}
+          onChange={(e) => setSearchWord(e.target.value)}
+        />
+      </div>
+
+      {/* 🧾 Cards */}
+      <section className="card-grid gap-3">
+        {comics.map((card, index) => (
+          <div key={index}>
             <Card
               title={card.title}
-              description={card.description}
               price={card.price}
               imageUrl={card.imageUrl}
               id={card.id}
-              isDetail={false}
-              ingredients={comic.ingredients}
+              category={card.category}
             />
           </div>
         ))}
       </section>
-    </>
+    </div>
   );
 }

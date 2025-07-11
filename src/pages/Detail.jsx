@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Card from "../components/Card";
+import DetailCard from "../components/Ui/DetailCard";
+import { Link } from "react-router-dom";
 
 export default function Detail() {
   const { id } = useParams();
@@ -12,6 +13,7 @@ export default function Detail() {
     axios
       .get(`${import.meta.env.VITE_API_URL}/${id}`)
       .then((res) => {
+        console.log(res.data);
         setComic(res.data);
         setLoading(false);
       })
@@ -23,13 +25,18 @@ export default function Detail() {
 
   return (
     <div className="d-flex justify-content-center align-items-center flex-column mt-4">
-      <Card
-        isDetail={true}
+      <Link to="/" className="btn btngen text-center mt-5">
+        {" "}
+        torna all'elenco{" "}
+      </Link>
+      <DetailCard
         id={comic.id}
         title={comic.title}
         description={comic.description}
         price={comic.price}
         imageUrl={comic.imageUrl}
+        stockQuantity={comic.stockQuantity}
+        category={comic.category}
       />
     </div>
   );
