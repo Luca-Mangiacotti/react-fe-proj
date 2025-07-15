@@ -30,7 +30,7 @@ export default function HomePage() {
     <div className="mx-5">
       <h1 className="text-info mb-3 mt-3">8bit Manga</h1>
 
-      {/* 🔍 Search bar */}
+      {/*  Search bar */}
       <div className="mb-4">
         <input
           type="text"
@@ -41,7 +41,7 @@ export default function HomePage() {
         />
       </div>
 
-      {/* 🧾 Cards */}
+      {/*  Cards */}
       <section className="card-grid gap-3">
         {comics.map((card, index) => (
           <div key={index}>
