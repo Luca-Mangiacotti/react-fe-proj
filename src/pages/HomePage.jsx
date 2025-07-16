@@ -6,12 +6,10 @@ export default function HomePage() {
   const [comics, setComics] = useState([]);
   const [searchWord, setSearchWord] = useState("");
 
-  // Funzione che carica i comics con parametri
   const fetchComics = () => {
-    const params = new URLSearchParams();
-    if (searchWord) params.append("word", searchWord);
-
-    const url = `${import.meta.env.VITE_API_URL}?${params.toString()}`;
+    const url = `${import.meta.env.VITE_API_URL}${
+      searchWord ? `?word=${searchWord}` : ""
+    }`;
 
     axios
       .get(url)
@@ -23,7 +21,6 @@ export default function HomePage() {
       });
   };
 
-  // Ricarica i dati quando searchWord cambia
   useEffect(fetchComics, [searchWord]);
 
   return (
