@@ -32,18 +32,17 @@ export default function CategoriesPage() {
       <h1 className="mb-4 text-info">Categorie</h1>
 
       <div className="mb-4 d-flex flex-wrap gap-2">
-        {Array.isArray(categories) &&
-          categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.name)}
-              className={`btn ${
-                selectedCategory === cat.name ? "btn-info" : "btn-outline-info"
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setSelectedCategory(cat.name)}
+            className={`btn ${
+              selectedCategory === cat.name ? "btn-info" : "btn-outline-info"
+            }`}
+          >
+            {cat.name}
+          </button>
+        ))}
       </div>
 
       {selectedCategory && (
