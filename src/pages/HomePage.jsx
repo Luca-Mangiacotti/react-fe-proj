@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Card from "../components/Ui/Card";
+import Card from "../components/ui/Card";
 
 export default function HomePage() {
   const [comics, setComics] = useState([]);
